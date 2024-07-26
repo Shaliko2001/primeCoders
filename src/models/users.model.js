@@ -3,11 +3,15 @@ import { Model } from 'objection';
 import knex from "knex";
 import knexConfigs from "../../knex.configs";
 const pg = knex(knexConfigs.development);
+import nodemailer from "nodemailer"
 
 // Local Modules
 import PSQLStorage from '../storage/psql.storage';
 
 class UsersModel extends Model {
+
+
+
   static get idColumn() { return 'id'; }
 
   static get tableName() { return 'admin_arm'; }
@@ -47,12 +51,25 @@ class UsersModel extends Model {
   // Methods
 
   static register(result) {
-    return UsersModel.query().insert(result);
+    return pg("users").insert(result);
+  }
+
+  static async login (email) {
+    const users = await pg("users").select("*").where("email", "=", email)
+    return users[0]
   }
 
   static async findByEmailAdmin(email) {
     const a = await pg("admin_arm").select("*").where("email", "=", email);
     return a
+  }
+
+  static inputEmail (email) {
+    return pg("users").select("email").where("email", "=", email)
+  }
+
+  static async forgotPassword (password,email) {
+     await pg("users").update("password", password).where("email", "=", email)
   }
 
   // static chats(userId) {

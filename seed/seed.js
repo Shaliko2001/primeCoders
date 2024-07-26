@@ -4,7 +4,7 @@ import knex from 'knex';
 import knexConfigs from '../knex.configs';
 import config from '../src/config/variables.config';
 
-const {ADMIN_PASSWORD} = config
+const { ADMIN_PASSWORD } = config;
 
 async function seed(pg) {
   // // Deletes ALL existing entries
@@ -16,7 +16,7 @@ async function seed(pg) {
 
   // // Inserts seed entries
 
-  await pg('admin_ru').insert([
+  await pg('admin_en').insert([
     {
       role : "admin",
       name: 'Sergo',
@@ -29,7 +29,7 @@ async function seed(pg) {
       created_at: new Date().toISOString(),
     },
     
-  ]);
+  ])
 }
 
 async function init() {

@@ -7,25 +7,11 @@ import { LoggerUtil } from '../src/utils';
 
 function up(pg) {
   return pg.schema
-    .createTable('admin_arm2', (table) => {
+    .createTable('home_page_arm', (table) => {
       table.increments('id').primary();
-      table.string('name').notNullable();
-      table.string('surname').notNullable();
-      table.string('role').notNullable();
-      table.string('email').notNullable();
-      table.string('password').notNullable();
-      table.string('picture').notNullable();
+      table.jsonb('main');
       table.dateTime('created_at');
-
-    }).createTable('users_arm2', (table) => {
-      table.increments('id').primary();
-      table.string('name').notNullable();
-      table.string('surname').notNullable();
-      table.string('role').notNullable();
-      table.string('email').notNullable().unique();
-      table.string('password').notNullable();
-      table.string('picture').notNullable();
-      table.dateTime('created_at');
+      table.dateTime('updated_at');
     })
 }
 

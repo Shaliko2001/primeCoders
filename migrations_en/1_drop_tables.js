@@ -7,8 +7,7 @@ import { LoggerUtil } from '../src/utils';
 
 function down(pg) {
   return pg.schema
-    .dropTableIfExists('admin_en')
-    .dropTableIfExists("users_en")
+    .dropTableIfExists('home_page_en')
 }
 
 async function init() {

@@ -7,7 +7,7 @@ import { LoggerUtil } from '../src/utils';
 
 function up(pg) {
   return pg.schema
-    .createTable('admin_ru', (table) => {
+    .createTable('admin', (table) => {
       table.increments('id').primary();
       table.string('name').notNullable();
       table.string('surname').notNullable();
@@ -17,7 +17,7 @@ function up(pg) {
       table.string('picture').notNullable();
       table.dateTime('created_at');
 
-    }).createTable('users_ru', (table) => {
+    }).createTable('users', (table) => {
       table.increments('id').primary();
       table.string('name').notNullable();
       table.string('surname').notNullable();

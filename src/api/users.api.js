@@ -12,6 +12,12 @@ router.get('/get',
   
   );
 
-  router.post("/register", UsersController.register)
+  router.post("/register", UsersController.register);
+
+  router.post('/login', UsersController.login);
+
+  router.post('/inputEmail', UsersController.inputEmail);
+
+  router.post('/forgotPassword', UsersController.forgotPassword)
 
 export default router;
