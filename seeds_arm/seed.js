@@ -1,14 +1,35 @@
 import knex from 'knex';
 import knexConfigs from '../knex.configs';
-
+import bCrypt from "bcryptjs"
+import config  from '../src/config/variables.config';
+const {ADMIN_PASSWORD} = config
 async function seed(pg) {
+
   // Inserts seed entries
   try {
+
+    await pg('admin').insert([
+      {
+        role : "admin",
+        name: 'Sergo',
+        surname : "Abrahamyan",
+        email: 'admin@gmail.com',
+        password: bCrypt.hashSync(ADMIN_PASSWORD, bCrypt.genSaltSync(10), null),
+        picture:
+        `https://images.unsplash.com/photo-1633332755192-727a05c4013d?ixlib=
+        rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=580&q=80`,
+        created_at: new Date().toISOString(),
+      },
+      
+    ])
+
+
+
     await pg('home_page_arm').insert({
       main: {
         first: {
           text1: 'John Doe',
-          text2: 'John Doe',
+          text2: 'John Doe1',
           text3: 'John Doe',
           text4: 'John Doe',
           background: "sdgjkfg.png",

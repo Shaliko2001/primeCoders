@@ -16,8 +16,15 @@ router.get('/get',
 
   router.post('/login', UsersController.login);
 
-  router.post('/inputEmail', UsersController.inputEmail);
+  router.post('/setNewPass', UsersController.setNewPass);
 
-  router.post('/forgotPassword', UsersController.forgotPassword)
+  router.post('/forgotPassword', UsersController.forgotPassword);
+
+  router.get('/gethomepage/:lang', UsersController.getHomePage);
+
+  
+
+
+
 
 export default router;

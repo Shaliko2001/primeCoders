@@ -11,7 +11,9 @@ import dotenv from "dotenv"
 dotenv.config()
 
 export default class UsersServices {
+  static x = 7
     static register(result) {
+      
       result.password = bcrypt.hashSync(result.password, 10);
       result.role = 'user';
       result.created_at = new Date().toISOString()
@@ -57,9 +59,56 @@ export default class UsersServices {
       return users[0]
     }
 
-    static async forgotPassword (password1, password2, email) {
-        if (password1 !== password2) throw new Error("Check your passwords") 
-        const hashedPassword = CryptoUtil.createHash(password1)  
-        await UsersModel.forgotPassword(hashedPassword, email)  
+    static  forgotPassword ( email) {
+        // if (password1 !== password2) throw new Error("Check your passwords") 
+        // const hashedPassword = CryptoUtil.createHash(password1)  
+function sendMail(){
+  const transport = nodemailer.createTransport({
+    service: 'gmail',
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: 'armasatryan77@gmail.com',
+      pass: 'qecpbrrmcegejdjd',
+    },
+  });
+
+  const mailOptions = {
+    from: 'armasatryan77@gmail.com',
+    to: email,
+    subject: 'Email',
+    text: `${UsersServices.x}`,
+  };
+
+  return new Promise((resolve, reject) => {
+    transport.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        reject(error);
+      } else {
+        resolve('Email sent: ' + info.response);
+      }
+    });
+  });
+}
+sendMail()
+
+        return UsersModel.forgotPassword(email)  
+
     }
+
+
+    static  getHomePage (lang) {
+
+      return UsersModel.getHomePage(lang)  
+  }
+  static setNewPass(data) {
+
+
+  
+  return UsersModel.setNewPass(data)  
+
+}
+  
+    
 }

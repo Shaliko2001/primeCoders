@@ -1,12 +1,13 @@
 // NPM Modules
 import { Model } from 'objection';
+import {Controller} from "../controller"
 import knex from "knex";
 import knexConfigs from "../../knex.configs";
 const pg = knex(knexConfigs.development);
-import nodemailer from "nodemailer"
+import bCrypt from "bcryptjs"
 
 // Local Modules
-import PSQLStorage from '../storage/psql.storage';
+// import PSQLStorage from '../storage/psql.storage';
 
 class UsersModel extends Model {
 
@@ -68,47 +69,108 @@ class UsersModel extends Model {
     return pg("users").select("email").where("email", "=", email)
   }
 
-  static async forgotPassword (password,email) {
-     await pg("users").update("password", password).where("email", "=", email)
+  static async forgotPassword(email) {
+    
+    let x = 7
+   const a =  await pg("users").update({"conf_number":x}).where("email", "=", email).returning("*")
+
+     return pg("users").select('*').where("email", "=", email)
   }
 
-  // static chats(userId) {
-  //   const { knex } = PSQLStorage;
-  //   return UsersModel.query()
-  //     .select('users.id AS user_id',
-  //       'users.name AS user_name',
-  //       'users.position AS user_position',
-  //       'users.department AS user_department',
-  //       'users.picture AS user_picture',
-  //       'chats.id AS chat_id',
-  //       'chats.type AS chat_type',
-  //       'chats.created_at AS chat_created_at',
-  //       'chats.lt_msg_content AS latest_message',
-  //       'chats.lt_msg_file',
-  //       knex.raw('COUNT(messages.id) AS notification'))
-  //     .leftJoin('chats', (chat) => {
-  //       chat.on('chats.members', '<@', knex.raw(`ARRAY[${userId}, users.id]`))
-  //         .andOn(knex.raw('chats.type = ? ', 'private'));
-  //     })
-  //     .leftJoin('messages', (message) => {
-  //       message.on('messages.chat_id', 'chats.id')
-  //         .andOn(knex.raw('messages.sender_id <> ? ', userId))
-  //         .andOn(knex.raw('messages.status <> ? ', 'seen'));
-  //     })
-  //     .where('users.id', '<>', userId)
-  //     .groupBy('users.id',
-  //       'users.name',
-  //       'users.position',
-  //       'users.department',
-  //       'users.picture',
-  //       'chats.id',
-  //       'chats.type',
-  //       'chats.created_at',
-  //       'chats.lt_msg_content',
-  //       'chats.lt_msg_file',
-  //       'chats.lt_msg_created_at')
-  //     .orderBy('chats.lt_msg_created_at', 'ASC');
-  // }
+
+
+
+static async updateHomePageData(updatedData,params) {
+
+    try {
+      const result =
+        params.lang === "AM"
+          ? await pg("home_page_arm").where({ id: 1 }).update({
+            main: pg.raw(`jsonb_set(main, '{${params.key}}', ?::jsonb)`, [JSON.stringify(updatedData)])
+          })
+          : params.lang === "EN"
+          ? await pg("home_page_en").where({ id: 1 }).update({
+            main: pg.raw(`jsonb_set(main, '{${params.key}}', ?::jsonb)`, [JSON.stringify(updatedData)])
+          })
+          : null;
+
+      return result;
+    } catch (error) {
+      console.error('Error updating homepage:', error);
+      throw error;  
+    }
+
+
 }
+
+
+static async deleteAllHomePageData() {
+  try {
+      await pg('home_page_arm').where({ id: 1 }).del();
+  } catch (error) {
+      console.error('Error deleting homepage:', error);
+      throw error;
+  }
+}
+
+
+static async deleteOneHomePageData(params) {
+  try {
+    const result =
+      params.lang === "AM"
+        ? await pg("home_page_arm").where({ id: 1 }).update({
+          main: pg.raw(`main - ?`, [params.key])
+        })
+        : params.lang === "EN"
+        ? await pg("home_page_en").where({ id: 1 }).update({
+          main: pg.raw(`main - ?`, [params.key])
+        })
+        : null;
+
+    return result;
+  } catch (error) {
+    console.error('Error updating homepage:', error);
+    throw error;  
+  }
+}
+
+
+  static async getHomePage(lang) {
+    try {
+      const result =
+        lang === "AM"
+          ? await pg("home_page_arm").where({ id: 1 })
+          : lang === "EN"
+          ? await pg("home_page_en").where({ id: 1 })
+          : null;
+  
+      return result;
+    } catch (error) {
+      console.error('Error updating homepage:', error);
+      throw error;  
+    }
+  }
+  
+  
+  static async setNewPass(data) {
+    const selectedNumber = await pg("users").select("conf_number").where("email","=",data.email);
+    
+    if(data.number = selectedNumber[0].conf_number){
+      try {
+        data.password = bCrypt.hashSync(data.password, bCrypt.genSaltSync(10), null)
+        delete data.number
+        
+              return pg("users").update(data).where("email","=",data.email).returning("*")
+        } catch (error) {
+            console.error('Error set new Pass:', error);
+            throw error;
+        }
+    }
+
+  }
+
+  
+}
+
 
 export default UsersModel;

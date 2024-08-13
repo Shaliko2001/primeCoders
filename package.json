@@ -5,22 +5,17 @@
   "scripts": {
     "start": "babel-node src/bin/www.js",
     "dev": "babel-watch src/bin/www.js",
-
     "migrations": "babel-node migrations/1_create_tables.js",
     "migrations-down": "babel-node migrations/1_drop_tables.js",
     "seed-migrations": "babel-node seeds/seed.js",
-    
     "migrate-arm": "babel-node migrations_arm/1_create_tables.js",
     "migrate-down-arm": "babel-node migrations_arm/1_drop_tables.js",
     "seed-arm": "babel-node seeds_arm/seed.js",
-    
-
     "migrate-en": "babel-node migrations_en/1_create_tables.js",
     "migrate-down-en": "babel-node migrations_en/1_drop_tables.js",
     "seed-en": "babel-node seeds_en/seed.js",
-
     "migrate": "npm run migrations & npm run migrate-arm & npm run migrate-en",
-    "migrate-down": "concurrently \"npm run migrations-down\" \"npm run migrate-down-arm\"  \"npm run migrate-down-en\"",
+    "migrate-down": "npm run migrations-down & npm run migrate-down-arm & npm run migrate-down-en",
     "lint-no-fix": "eslint src/",
     "lint": "eslint --fix src/"
   },
@@ -40,6 +35,7 @@
     "@babel/preset-env": "^7.18.10",
     "@meanie/mongoose-to-json": "^2.6.0",
     "babel": "^6.23.0",
+    "babel-node": "^0.0.1-security",
     "babel-watch": "^7.7.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",

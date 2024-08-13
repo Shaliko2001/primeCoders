@@ -10,16 +10,14 @@ class Service {
         port: 465,
         secure: true,
         auth: {
-          // company mail
           user: 'armasatryan77@gmail.com',
           pass: 'qecpbrrmcegejdjd',
         },
       });
     
       const mailOptions = {
-        // company mail
         from: 'armasatryan77@gmail.com',
-        to: 'armasatryan77@gmail.com',
+        to: email,
         subject: 'Email',
         text: `From ${name}, ${email}, ${text}`,
       };

@@ -28,20 +28,34 @@ export default class UsersController {
       }
   }  
   
-  static async inputEmail (req, res, next) {
-      const { email } = req.body
-      const userEmail = await UsersServices.inputEmail(email)
-      SuccessHandlerUtil.handleList(res, next, { email : userEmail.email })
+  static async setNewPass (req, res, next) {
+      const data = req.body
+      const userEmail = await UsersServices.setNewPass(data)
+      SuccessHandlerUtil.handleList(res, next, userEmail)
   }
 
   
   static async forgotPassword (req, res, next) {
       try {
-        const { password1, password2, email } = req.body
-        await UsersServices.forgotPassword(password1, password2, email)
-        SuccessHandlerUtil.handleList(res, next, { message : "successfull updated password ..." })
+        const {email} = req.body
+        const result = await UsersServices.forgotPassword(email);
+        console.log(result);
+        
+        SuccessHandlerUtil.handleList(res, next,result)
       } catch (error) {
          next(error)
       }
+  }
+
+  static async getHomePage(req, res, next) {
+    try {
+      const {lang} = req.params
+      const result  = await UsersServices.getHomePage(lang)
+        SuccessHandlerUtil.handleList(res, next, result);
+      } 
+     catch (error) {
+        console.error('Error fetching homepage data:', error);
+       next(error);
+    }
   }
 }
