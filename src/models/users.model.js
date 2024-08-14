@@ -71,10 +71,10 @@ class UsersModel extends Model {
 
   static async forgotPassword(email) {
     
-    let x = 7
+   let x = 7
    const a =  await pg("users").update({"conf_number":x}).where("email", "=", email).returning("*")
 
-     return pg("users").select('*').where("email", "=", email)
+    return pg("users").select('*').where("email", "=", email)
   }
 
 
