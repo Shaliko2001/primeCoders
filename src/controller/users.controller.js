@@ -76,5 +76,12 @@ export default class UsersController {
     }
 }
 
-
+static async getHomePageArm (req, res, next) {
+  try {
+    const data = await UsersServices.getHomePageArm()
+    SuccessHandlerUtil.handleList(res, next, data)
+  } catch (error) {
+    next(error)
+  }
+}
 }

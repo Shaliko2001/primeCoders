@@ -169,18 +169,23 @@ static async deleteOneHomePageData(params) {
     }
 
   }
-// GMAIL AUTH
+
+  // GMAIL AUTH
   static async saveGoogleLoginData (name, surname, email) {
     console.log(email);
     
-     const user = await pg("users").select("*").where("email", "=", email)
-     console.log(user);
-     
-     if (!user[0]) {
+    const user = await pg("users").select("*").where("email", "=", email)
+    console.log(user);
+    
+    if (!user[0]) {
         await pg('users').insert({name, surname, role : "user", email, password : null, picture : null, created_at : new Date().toISOString()})
-     } else {
+    } else {
         return
-     }
+    }
+  }
+
+  static async getHomePageArm () {
+    return await pg("home_page_arm").select("*")
   }
 }
 

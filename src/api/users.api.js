@@ -30,10 +30,7 @@ router.get('/get',
 
   router.get("/google/auth/callback", passport.authenticate("google", {failureRedirect : "/api/v1/users/google/login/failure"}), UsersController.saveGoogleLoginData)
 
-  // router.get("/homepage", UsersController.getHomePageData)
-
-  // router.get("/google/login/failure", UsersController.failureLogin)
-
+  router.get("/homepage", UsersController.getHomePageArm)
 
 
 export default router;

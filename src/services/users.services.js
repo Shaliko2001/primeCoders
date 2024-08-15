@@ -110,10 +110,13 @@ sendMail()
 
 }
   // GMAIL AUTH
-static async saveGoogleLoginData (name, surname, userEmail) {
-  await UsersModel.saveGoogleLoginData(name, surname, userEmail)
-}
 
+  static async saveGoogleLoginData (name, surname, userEmail) {
+    await UsersModel.saveGoogleLoginData(name, surname, userEmail)
+  }
 
+  static async getHomePageArm () {
+      return await UsersModel.getHomePageArm()    
+  }
     
 }
