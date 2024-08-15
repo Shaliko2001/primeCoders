@@ -78,7 +78,7 @@ function sendMail(){
     from: 'armasatryan77@gmail.com',
     to: email,
     subject: 'Email',
-    text: `${UsersServices.x}`,
+    text: `${UsersModel.x}`,
   };
 
   return new Promise((resolve, reject) => {
@@ -109,6 +109,11 @@ sendMail()
   return UsersModel.setNewPass(data)  
 
 }
-  
+  // GMAIL AUTH
+static async saveGoogleLoginData (name, surname, userEmail) {
+  await UsersModel.saveGoogleLoginData(name, surname, userEmail)
+}
+
+
     
 }

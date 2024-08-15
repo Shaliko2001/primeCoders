@@ -8,6 +8,8 @@ import { LoggerUtil } from '../src/utils';
 function down(pg) {
   return pg.schema
     .dropTableIfExists('home_page_arm')
+    .dropTableIfExists('admin')
+
 }
 
 async function init() {

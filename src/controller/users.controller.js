@@ -58,4 +58,23 @@ export default class UsersController {
        next(error);
     }
   }
+
+  static async saveGoogleLoginData (req, res, next) {
+    try {
+       const user = req.user
+      //  console.log(user);
+       
+       const { name, emails } = user
+       const userEmail = emails[0].value
+       const { familyName, givenName } = name
+       console.log(userEmail, familyName, givenName);
+       
+       await UsersServices.saveGoogleLoginData(familyName, givenName, userEmail)
+       res.redirect("/api/v1/users/homepage")
+    } catch (error) {
+        next(error)
+    }
+}
+
+
 }

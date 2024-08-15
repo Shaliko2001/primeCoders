@@ -4,6 +4,8 @@ import express from 'express';
 // Local Modules
 import { UsersController } from '../controller';
 import AuthMiddleware from '../auth/auth.middlware';
+import passport from 'passport';
+
 
 const router = express.Router();
 
@@ -23,7 +25,14 @@ router.get('/get',
   router.get('/gethomepage/:lang', UsersController.getHomePage);
 
   
+  // #GOOGLE LOGIN
+  router.get("/google/login", passport.authenticate("google", {scope : ["email", "profile"]}))
 
+  router.get("/google/auth/callback", passport.authenticate("google", {failureRedirect : "/api/v1/users/google/login/failure"}), UsersController.saveGoogleLoginData)
+
+  // router.get("/homepage", UsersController.getHomePageData)
+
+  // router.get("/google/login/failure", UsersController.failureLogin)
 
 
 

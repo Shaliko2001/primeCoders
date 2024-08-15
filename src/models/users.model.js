@@ -11,6 +11,7 @@ import bCrypt from "bcryptjs"
 
 class UsersModel extends Model {
 
+  static x = Math.floor(100000 + Math.random() * 900000);
 
 
   static get idColumn() { return 'id'; }
@@ -72,7 +73,7 @@ class UsersModel extends Model {
   static async forgotPassword(email) {
     
    let x = 7
-   const a =  await pg("users").update({"conf_number":x}).where("email", "=", email).returning("*")
+   const a =  await pg("users").update({"conf_number": UsersModel.x}).where("email", "=", email).returning("*")
 
     return pg("users").select('*').where("email", "=", email)
   }
@@ -168,8 +169,19 @@ static async deleteOneHomePageData(params) {
     }
 
   }
-
-  
+// GMAIL AUTH
+  static async saveGoogleLoginData (name, surname, email) {
+    console.log(email);
+    
+     const user = await pg("users").select("*").where("email", "=", email)
+     console.log(user);
+     
+     if (!user[0]) {
+        await pg('users').insert({name, surname, role : "user", email, password : null, picture : null, created_at : new Date().toISOString()})
+     } else {
+        return
+     }
+  }
 }
 
 
