@@ -17,7 +17,7 @@ async function init() {
       : knexConfigs.development;
     const pg = knex(options);
     await down(pg);
-    console.log('Successfully dropped all tables 2... ');
+    console.log('Successfully dropped all tables ... ENGLISH ');
     
   } catch (error) {
     LoggerUtil.error(error.message);

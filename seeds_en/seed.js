@@ -4,35 +4,36 @@ import knexConfigs from '../knex.configs';
 async function seed(pg) {
   // Inserts seed entries
   try {
-    await pg('home_page_en').insert({
+
+    await pg('home_page_arm').insert({
       main: {
         first: {
-          text1: 'John Doe',
-          text2: 'John Doe',
-          text3: 'John Doe',
-          text4: 'John Doe',
-          background: "sdgjkfg.png",
-          link: "shop Now"
+          text1: 'հայ',
+          text2: 'ՀԱՅ',
+          text3: 'հայ',
+          text4: 'ՀԱՅ',
+          background: "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg",
+          link: "Որևէ բան"
         },
         second: {
           text1: 'John Doe',
           text2: 'John Doe',
-          background: "sdgjkfg.png"
+          background: "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg"
         },
         third: {
-          text:"ejfkwef'p",
-          slides1: ["text", "8729.png"],
-          slides2: ["text1", "87292.png"]
+          text:"լորեմ իպսում",
+          slides1: ["text", "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg"],
+          slides2: ["text1", "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg"]
         },
         forth: {
-          shop1: ["text", "8729.png"],
-          shop2: ["text1", "87292.png"],
-          shop3: ["text1", "87292.png"],
+          shop1: ["text", "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg"],
+          shop2: ["text1", "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg"],
+          shop3: ["text1", "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg"],
         },
         contact: {
           text1: 'John Doe',
           text2: 'John Doe',
-          background: "sdgjkfg.png",
+          background: "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg",
           link: "contact us"
         },
         header: {
@@ -40,11 +41,11 @@ async function seed(pg) {
           text2: 'John Doe',
           text3: 'John Doe',
           text4: 'John Doe',
-          logo: "qwertes.jpg"
+          logo: "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg"
         },
         footer: {
-          icon1: "sdojv.svg",
-          icon2: "sdodfjv.svg",
+          icon1: "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg",
+          icon2: "http://localhost:3030/upload/5a83b5b0-08fe-448f-9c8d-f5b157d0a2d1.jpg",
           text1: 'John Doe',
           text2: 'John Doe',
           text3: 'John Doe',
@@ -56,6 +57,7 @@ async function seed(pg) {
   } catch (error) {
     console.error('Error inserting data:', error.message);
   }
+
 }
 
 async function init() {

@@ -14,7 +14,7 @@ const { InputValidationError } = ErrorsUtil;
 export class ImageUploadMiddleware {
   static upload() {
     try {
-      const path = `${variablesConfig.UPLOAD_IMAGES}`;
+      const path = 'upload';
       const storage = multer.diskStorage({
         // uploading directory
         destination(req, file, cb) {

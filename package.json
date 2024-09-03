@@ -1,7 +1,7 @@
 {
   "name": "site",
   "version": "1.0.0",
-  "description": "CITY",
+  "description": "PrimeCoders",
   "scripts": {
     "start": "babel-node src/bin/www.js",
     "dev": "babel-watch src/bin/www.js",
@@ -12,7 +12,7 @@
     "lint-no-fix": "eslint src/",
     "lint": "eslint --fix src/"
   },
-  "author": "Engined AM",
+  "author": "Shaliko Arshakyan",
   "devDependencies": {
     "concurrently": "^8.2.2",
     "eslint": "^7.9.0",
@@ -29,7 +29,7 @@
     "@meanie/mongoose-to-json": "^2.6.0",
     "babel": "^6.23.0",
     "babel-node": "^0.0.1-security",
-    "babel-watch": "^7.7.0",
+    "babel-watch": "^7.8.1",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.19.2",
     "cors": "^2.8.5",

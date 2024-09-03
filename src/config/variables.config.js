@@ -2,7 +2,8 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 const config = {
-  ADMIN_PASSWORD: 'nodeJS',
+  ADMIN_PASSWORD: 'Zillt75mg*88',
+  HOST_OF_SERVER:process.env.SERVER_HOST,
   LOG_LEVEL: process.env.LOG_LEVEL,
   PORT: process.env.PORT || 3040,
   ONE_WAY_HASH_SECRET: process.env.ONE_WAY_HASH_SECRET,

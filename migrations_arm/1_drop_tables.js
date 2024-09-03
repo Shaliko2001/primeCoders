@@ -9,7 +9,8 @@ function down(pg) {
   return pg.schema
     .dropTableIfExists('home_page_arm')
     .dropTableIfExists('admin')
-
+    .dropTableIfExists('student_registr')
+    
 }
 
 async function init() {
@@ -19,7 +20,8 @@ async function init() {
       : knexConfigs.development;
     const pg = knex(options);
     await down(pg);
-    console.log('Successfully dropped all tables1 ... ');
+    console.log('Successfully dropped all tables ...ARMENIA ');
+    process.exit(process.pid)
   } catch (error) {
     LoggerUtil.error(error.message);
   }

@@ -84,4 +84,35 @@ static async getHomePageArm (req, res, next) {
     next(error)
   }
 }
+
+
+
+static async addStudent (req, res, next) {
+  try {
+    const info = req.body
+    const data = await UsersServices.addStudent(info)
+    SuccessHandlerUtil.handleList(res, next, data)
+  } catch (error) {
+    next(error)
+  }
+}
+static async getAllStudents (req, res, next) {
+  try {
+    const data = await UsersServices.getAllStudents()
+    SuccessHandlerUtil.handleList(res, next, data)
+  } catch (error) {
+    next(error)
+  }
+}
+static async getStudentsByCourseName (req, res, next) {
+  try {
+    const {courseName} = req.params
+    const data = await UsersServices.getStudentsByCourseName(courseName)
+    SuccessHandlerUtil.handleList(res, next, data)
+  } catch (error) {
+    next(error)
+  }
+}
+
+
 }

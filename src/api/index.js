@@ -1,7 +1,7 @@
 import express from 'express';
 
-import auth from './auth.api';
-import users from './users.api';
+import auth from './auth.api.js';
+import users from './users.api.js';
 import admin from './admin.js';
 
 

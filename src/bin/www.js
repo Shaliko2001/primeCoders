@@ -2,8 +2,8 @@
 import http from 'http';
 import 'dotenv/config';
 import 'regenerator-runtime';
-import passport from "passport";
-import Google from "passport-google-oauth20"
+// import passport from "passport";
+// import Google from "passport-google-oauth20"
 
 // Modules from this project
 import { LoggerUtil } from '../utils';
@@ -14,27 +14,28 @@ import config from '../config/variables.config';
 import { name } from '../../package.json';
 
 const { PORT } = config;
+// G M A I L    A U T H -----------------------------------------------------------------------------
+  // const GoogleStrategy = Google.Strategy
 
-  const GoogleStrategy = Google.Strategy
+  // passport.use(new GoogleStrategy({
+  //       clientID : process.env.GOOGLE_CLIENT_ID,
+  //       clientSecret : process.env.GOOGLE_CLIENT_SECRET,
+  //       callbackURL : "http://localhost:3030/api/v1/users/google/auth/callback"
+  //     },
 
-  passport.use(new GoogleStrategy({
-        clientID : process.env.GOOGLE_CLIENT_ID,
-        clientSecret : process.env.GOOGLE_CLIENT_SECRET,
-        callbackURL : "http://localhost:3030/api/v1/users/google/auth/callback"
-      },
+  //     (req, accessToken, refreshToken, profile, done) => {
+  //         done(null, profile)
+  //     }
+  // ))
 
-      (req, accessToken, refreshToken, profile, done) => {
-          done(null, profile)
-      }
-  ))
+  // passport.serializeUser((profile, done) => {
+  //   done(null, profile)
+  // })
 
-  passport.serializeUser((profile, done) => {
-    done(null, profile)
-  })
-
-  passport.deserializeUser((profile, done) => {
-    done(null, profile)
-  })
+  // passport.deserializeUser((profile, done) => {
+  //   done(null, profile)
+  // })
+// G M A I L    A U T H -----------------------------------------------------------------------------
 
 
 const init = async () => {

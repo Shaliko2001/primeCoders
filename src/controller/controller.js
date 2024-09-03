@@ -3,6 +3,7 @@ import { Service } from '../services';
 import { SuccessHandlerUtil } from '../utils';
 import { UsersModel } from "../models"
 // import ClientsManager from '../socket/clients-manager';
+import config from "../config/variables.config" 
 
 export default class Controller {
   static async sendMail(req, res, next) {
@@ -11,6 +12,22 @@ export default class Controller {
 
       await Service.sendMail(name, email, text);
       SuccessHandlerUtil.handleList(res, next, { succes: true });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  static async imageUpload(req, res, next) {
+    try {
+      const { file } = req;
+      const { originalname, filename, path } = file;
+      const dirname = config.HOST_OF_SERVER + path;
+      res.json({
+        originalname,
+        filename,
+        dirname,
+        success: true,
+      });
     } catch (error) {
       next(error);
     }

@@ -4,7 +4,7 @@ import cors from "cors";
 import express from "express";
 import morgan from "morgan";
 import helmet from "helmet";
-import session from "express-session";
+// import session from "express-session";
 import passport from "passport";
 import dotenv from "dotenv";
 dotenv.config()
@@ -32,12 +32,16 @@ class App {
     this.app = express();
     this.app.use(helmet());
     this.app.use("/upload", express.static("upload"));
+// G M A I L    A U T H -----------------------------------------------------------------------------
 
-    this.app.use(session({
-      secret : process.env.SESSION_SECRET,
-    }));
-    this.app.use(passport.initialize())
-    this.app.use(passport.session())
+    // this.app.use(session({
+    //   secret : process.env.SESSION_SECRET,
+    // }));
+
+    // this.app.use(passport.initialize())
+    // this.app.use(passport.session())
+// G M A I L    A U T H -----------------------------------------------------------------------------
+
   }
 
   /* @description Initialize the App.

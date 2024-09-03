@@ -11,7 +11,7 @@ import bCrypt from "bcryptjs"
 
 class UsersModel extends Model {
 
-  static x = Math.floor(100000 + Math.random() * 900000);
+  // static x = Math.floor(100000 + Math.random() * 900000);
 
 
   static get idColumn() { return 'id'; }
@@ -69,14 +69,15 @@ class UsersModel extends Model {
   static inputEmail (email) {
     return pg("users").select("email").where("email", "=", email)
   }
-
-  static async forgotPassword(email) {
+ // forgot Pass -----------------------------------------------------------------
+  // static async forgotPassword(email) {
     
-   let x = 7
-   const a =  await pg("users").update({"conf_number": UsersModel.x}).where("email", "=", email).returning("*")
+  //  let x = 7 // EXAMPLE
+  //  const a =  await pg("users").update({"conf_number": UsersModel.x}).where("email", "=", email).returning("*")
 
-    return pg("users").select('*').where("email", "=", email)
-  }
+  //   return pg("users").select('*').where("email", "=", email)
+  // }
+ // forgot Pass -----------------------------------------------------------------
 
 
 
@@ -104,7 +105,7 @@ static async updateHomePageData(updatedData,params) {
 
 }
 
-
+// Dont use this method ------------------------------------------
 static async deleteAllHomePageData() {
   try {
       await pg('home_page_arm').where({ id: 1 }).del();
@@ -113,7 +114,7 @@ static async deleteAllHomePageData() {
       throw error;
   }
 }
-
+//-------------------------------------------------------------------
 
 static async deleteOneHomePageData(params) {
   try {
@@ -151,6 +152,16 @@ static async deleteOneHomePageData(params) {
       throw error;  
     }
   }
+
+  
+  static  addStudent(info) {
+    try {      
+        return pg('student_registr').insert(info).returning('*');
+    } catch (error) {
+        console.error('Error inserting homepage:', error);
+        throw error;
+    }
+  }
   
   
   static async setNewPass(data) {
@@ -170,23 +181,31 @@ static async deleteOneHomePageData(params) {
 
   }
 
-  // GMAIL AUTH
-  static async saveGoogleLoginData (name, surname, email) {
-    console.log(email);
+  // // GMAIL AUTH ----------------------------------------------------------------
+  // static async saveGoogleLoginData (name, surname, email) {
+  //   console.log(email);
     
-    const user = await pg("users").select("*").where("email", "=", email)
-    console.log(user);
+  //   const user = await pg("users").select("*").where("email", "=", email)
+  //   console.log(user);
     
-    if (!user[0]) {
-        await pg('users').insert({name, surname, role : "user", email, password : null, picture : null, created_at : new Date().toISOString()})
-    } else {
-        return
-    }
-  }
+  //   if (!user[0]) {
+  //       await pg('users').insert({name, surname, role : "user", email, password : null, picture : null, created_at : new Date().toISOString()})
+  //   } else {
+  //       return
+  //   }
+  // }
+  // // GMAIL AUTH -------------------------------------------------------------------------------------------
 
   static async getHomePageArm () {
     return await pg("home_page_arm").select("*")
   }
+  static async getAllStudents () {
+    return await pg("student_registr").select("*")
+  }
+  static async getStudentsByCourseName (courseName) {
+    return await pg("student_registr").select("*").where({"course":courseName})
+  }
+  
 }
 
 

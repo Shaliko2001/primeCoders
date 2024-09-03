@@ -16,7 +16,6 @@ function up(pg) {
     table.string('password').notNullable();
     table.string('picture').notNullable();
     table.dateTime('created_at');
-
   })
     .createTable('home_page_arm', (table) => {
       table.increments('id').primary();
@@ -24,6 +23,19 @@ function up(pg) {
       table.dateTime('created_at');
       table.dateTime('updated_at');
     })
+    .createTable('student_registr', (table) => {
+      table.increments('id').primary();
+      table.string('name').notNullable();
+      table.string('surname').notNullable();
+      table.integer('age').notNullable();
+      table.string('email').unique().notNullable();
+      table.string('course').notNullable();
+      table.string('phoneNumber').notNullable();
+      table.string('secontPhoneNumber');
+      table.text('note');
+      table.dateTime('created_at');
+    })
+  
 }
 
 async function init() {
@@ -33,7 +45,7 @@ async function init() {
       : knexConfigs.development;
     const pg = knex(options);
     await up(pg);
-    console.log('Successfully created all tables 7... ');
+    console.log('Successfully created all tables ... Arm ');
     process.kill(process.pid)
 
   } catch (error) {
